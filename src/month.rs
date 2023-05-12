@@ -161,32 +161,6 @@ impl MonthNaiveDate {
         }
     }
 
-    #[allow(unused)]
-    pub fn equalize_vector_length(&mut self, mut dates: Date) -> Self {
-        /*let dummy_date = NaiveDate::from_ymd_opt(1999, 1, 1).unwrap();
-
-        let all_equal = self.check_if_months_are_all_equal();
-
-        let mut return_value = MonthNaiveDate::new();
-
-        if all_equal {
-            return_value = Self {
-                monday: self.monday.clone(),
-                tuesday: self.tuesday.clone(),
-                wednesday: self.wednesday.clone(),
-                thursday: self.thursday.clone(),
-                friday: self.friday.clone(),
-                saturday: self.saturday.clone(),
-                sunday: self.sunday.clone(),
-            };
-        } else {
-            return_value = self.clone().push_dummy_dates_to_vectors(dates, dummy_date);
-        }
-
-        return_value*/
-        todo!()
-    }
-
     pub fn get_length_of_month(&self, dates: Date) -> u32 {
         match dates.month {
             1 => 31,
@@ -454,34 +428,6 @@ impl MonthString {
             saturday: self.saturday,
             sunday: self.sunday,
         }
-    }
-
-    #[allow(unused)]
-    pub fn equalize_vector_length(&mut self, dates: Date) -> Self {
-        // let dummy_date = "0000-00-00".to_string();
-        /*let dummy_date = "2023-01-01".to_string();
-
-        let all_equal = self.check_if_month_are_all_equal();
-
-        let mut return_value = MonthString::new();
-
-        if all_equal {
-            return_value = Self {
-                monday: self.monday.clone(),
-                tuesday: self.tuesday.clone(),
-                wednesday: self.wednesday.clone(),
-                thursday: self.thursday.clone(),
-                friday: self.friday.clone(),
-                saturday: self.saturday.clone(),
-                sunday: self.sunday.clone(),
-            };
-        } else {
-            return_value = self.clone().push_dummy_dates_to_vectors(dates, dummy_date);
-            // return_value = self.push_dummy_dates_to_vectors(dates, dummy_date);
-        }
-
-        return_value*/
-        todo!()
     }
 
     pub fn get_length_of_month(&self, dates: Date) -> u32 {
