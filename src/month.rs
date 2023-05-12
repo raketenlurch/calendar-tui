@@ -163,12 +163,14 @@ impl MonthNaiveDate {
 
     #[allow(unused)]
     pub fn equalize_vector_length(&mut self, mut dates: Date) -> Self {
-        let dummy_date = NaiveDate::from_ymd_opt(1999, 1, 1).unwrap();
+        /*let dummy_date = NaiveDate::from_ymd_opt(1999, 1, 1).unwrap();
 
         let all_equal = self.check_if_months_are_all_equal();
 
+        let mut return_value = MonthNaiveDate::new();
+
         if all_equal {
-            Self {
+            return_value = Self {
                 monday: self.monday.clone(),
                 tuesday: self.tuesday.clone(),
                 wednesday: self.wednesday.clone(),
@@ -176,10 +178,13 @@ impl MonthNaiveDate {
                 friday: self.friday.clone(),
                 saturday: self.saturday.clone(),
                 sunday: self.sunday.clone(),
-            }
+            };
         } else {
-            self.clone().push_dummy_dates_to_vectors(dates, dummy_date)
+            return_value = self.clone().push_dummy_dates_to_vectors(dates, dummy_date);
         }
+
+        return_value*/
+        todo!()
     }
 
     pub fn get_length_of_month(&self, dates: Date) -> u32 {
@@ -224,7 +229,6 @@ impl MonthNaiveDate {
 
     #[allow(unused)]
     pub fn build_month_from_date_naive_date(
-        //&mut self,
         self,
         mut month: &mut MonthNaiveDate,
         mut dates: Date,
@@ -454,12 +458,15 @@ impl MonthString {
 
     #[allow(unused)]
     pub fn equalize_vector_length(&mut self, dates: Date) -> Self {
-        let dummy_date = "0000-00-00".to_string();
+        // let dummy_date = "0000-00-00".to_string();
+        /*let dummy_date = "2023-01-01".to_string();
 
         let all_equal = self.check_if_month_are_all_equal();
 
+        let mut return_value = MonthString::new();
+
         if all_equal {
-            Self {
+            return_value = Self {
                 monday: self.monday.clone(),
                 tuesday: self.tuesday.clone(),
                 wednesday: self.wednesday.clone(),
@@ -467,10 +474,14 @@ impl MonthString {
                 friday: self.friday.clone(),
                 saturday: self.saturday.clone(),
                 sunday: self.sunday.clone(),
-            }
+            };
         } else {
-            self.clone().push_dummy_dates_to_vectors(dates, dummy_date)
+            return_value = self.clone().push_dummy_dates_to_vectors(dates, dummy_date);
+            // return_value = self.push_dummy_dates_to_vectors(dates, dummy_date);
         }
+
+        return_value*/
+        todo!()
     }
 
     pub fn get_length_of_month(&self, dates: Date) -> u32 {
@@ -679,5 +690,30 @@ impl From<Vec<Vec<String>>> for MonthString {
             saturday: value[5].clone(),
             sunday: value[6].clone(),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_if_all_vectors_are_equal_naive_date() {
+        todo!()
+    }
+
+    #[test]
+    fn check_if_all_vectors_are_not_equal_naive_date() {
+        todo!()
+    }
+
+    #[test]
+    fn check_if_all_vectors_are_equal_string() {
+        todo!()
+    }
+
+    #[test]
+    fn check_if_all_vectors_are_not_equal_string() {
+        todo!()
     }
 }

@@ -8,23 +8,27 @@ mod month;
 
 fn main() {
     let mut date = Date::new();
-    let mut month = MonthNaiveDate::new();
+    let month = MonthString::new();
+    let mut month_as_naive_date = MonthNaiveDate::new();
+    let dummy_date = "0000-00-00".to_string();
 
     date.day = 1;
 
-    println!("month (as number): ");
+    println!("month (as number):");
     date.month = get_u32();
 
     println!("year (as number):");
-    date.month = get_u32();
+    date.year = get_u32().try_into().unwrap();
 
-    let mut sorted_month_string = month
+    let sorted_month_string = month
         .clone()
-        .build_month_from_date_naive_date(&mut month, date);
+        .build_month_from_date_string(&mut month_as_naive_date, date);
 
-    dbg!(&month);
-    sorted_month_string.equalize_vector_length(date);
-    dbg!(&month);
+    let sorted_month_string = sorted_month_string
+        .clone()
+        .push_dummy_dates_to_vectors(date, dummy_date);
+    let output = build_string_from_vecs(sorted_month_string);
+    dbg!(&output);
 }
 
 fn get_u32() -> u32 {
