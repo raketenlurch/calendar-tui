@@ -1,7 +1,7 @@
 use crate::date::Date;
 use crate::month::{MonthNaiveDate, MonthString};
 
-use std::cmp;
+use std::{cmp, fmt};
 
 mod date;
 mod month;
@@ -27,8 +27,7 @@ fn main() {
     let sorted_month_string = sorted_month_string
         .clone()
         .push_dummy_dates_to_vectors(date, dummy_date);
-    let output = build_string_from_vecs(sorted_month_string);
-    dbg!(&output);
+    let output = print_month(sorted_month_string);
 }
 
 fn get_u32() -> u32 {
@@ -42,18 +41,13 @@ fn get_u32() -> u32 {
     input.parse().expect("Peng")
 }
 
-fn build_string_from_vecs(mut dates: MonthString) -> Result<String, &'static str> {
+fn print_month(mut dates: MonthString) -> Result<(), &'static str> {
     if !dates.check_if_month_are_all_equal() {
         return Err("All fields need to have the same length");
     }
 
-    let mut output = String::new();
-    let month_as_string = dates.get_fields_as_array();
-
-    output.push_str(" monday | tuesday | wednesday | thursday | friday | saturday | sunday ");
-    output.push_str("\n");
-    output.push_str("------------|-------------|---------------|--------------|------------|--------------|------------");
-    output.push_str("\n");
+    println!(" monday     | tuesday     | wednesday     | thursday     | friday     | saturday     | sunday     ");
+    println!("------------|-------------|---------------|--------------|------------|--------------|------------");
 
     let length = cmp::max(
         dates.monday.len(),
@@ -73,24 +67,22 @@ fn build_string_from_vecs(mut dates: MonthString) -> Result<String, &'static str
     );
 
     for mut i in 0..length {
-        output.push_str(" ");
-        output.push_str(&dates.monday[i]);
-        output.push_str(" | ");
-        output.push_str(&dates.tuesday[i]);
-        output.push_str(" | ");
-        output.push_str(&dates.wednesday[i]);
-        output.push_str(" | ");
-        output.push_str(&dates.thursday[i]);
-        output.push_str(" | ");
-        output.push_str(&dates.friday[i]);
-        output.push_str(" | ");
-        output.push_str(&dates.saturday[i]);
-        output.push_str(" | ");
-        output.push_str(&dates.sunday[i]);
-        output.push_str("\n");
+        let output_string = fmt::format(format_args!(
+            " {} | {}  | {}    | {}   | {} | {}   | {} {}",
+            &dates.monday[i],
+            &dates.tuesday[i],
+            &dates.wednesday[i],
+            &dates.thursday[i],
+            &dates.friday[i],
+            &dates.saturday[i],
+            &dates.sunday[i],
+            "\n"
+        ));
+
+        print!("{}", output_string);
 
         i += 1;
     }
 
-    Ok(output)
+    Ok(())
 }
