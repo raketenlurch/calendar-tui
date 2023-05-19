@@ -1,4 +1,4 @@
-- [ ] Liste Tage des aktuellen Monates (eine Woche je Zeile, mit Wochennummer). Wochenanfang ist Montag
+- [x] Liste Tage des aktuellen Monates (eine Woche je Zeile, mit Wochennummer). Wochenanfang ist Montag
 - [ ] Markiere "Heute"
 - [ ] Mit Eingabe eines Monates diesen Monat anzeigen
 - [ ] Mit Eingabe eines Jahres + Monates diesen Monat anzeigen
