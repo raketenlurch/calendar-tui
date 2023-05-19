@@ -638,28 +638,3 @@ impl From<Vec<Vec<String>>> for MonthString {
         }
     }
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn check_if_all_vectors_are_equal_naive_date() {
-        todo!()
-    }
-
-    #[test]
-    fn check_if_all_vectors_are_not_equal_naive_date() {
-        todo!()
-    }
-
-    #[test]
-    fn check_if_all_vectors_are_equal_string() {
-        todo!()
-    }
-
-    #[test]
-    fn check_if_all_vectors_are_not_equal_string() {
-        todo!()
-    }
-}
