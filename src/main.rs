@@ -1,17 +1,23 @@
+extern crate colored;
+
 use crate::date::Date;
 use crate::month::{MonthNaiveDate, MonthString};
 
-use anyhow::{anyhow, Ok, Result};
 use std::{cmp, fmt};
+
+use anyhow::{anyhow, Ok, Result};
+use chrono::Local;
+use colored::*;
 
 mod date;
 mod month;
 
-fn main() {
+fn main() -> Result<()> {
     let mut date = Date::new();
     let month = MonthString::new();
     let mut month_as_naive_date = MonthNaiveDate::new();
     let dummy_date = "0000-00-00".to_string();
+    let today = today()?;
 
     date.day = 1;
 
@@ -29,8 +35,11 @@ fn main() {
         .clone()
         .push_dummy_dates_to_vectors(date, dummy_date);
     //let output = print_month(sorted_month_string);
-    let cropped_string = crop_dates(sorted_month_string).unwrap();
+    let cropped_string = crop_dates(sorted_month_string, today).unwrap();
+    dbg!(today);
     print_month(cropped_string).unwrap();
+
+    Ok(())
 }
 
 fn get_u32() -> u32 {
@@ -90,7 +99,7 @@ fn print_month(mut dates: MonthString) -> Result<()> {
     Ok(())
 }
 
-fn crop_dates(dates: MonthString) -> Result<MonthString> {
+fn crop_dates(dates: MonthString, current_date: Date) -> Result<MonthString> {
     let mut monday: Vec<String> = Vec::new();
     let mut tuesday: Vec<String> = Vec::new();
     let mut wednesday: Vec<String> = Vec::new();
@@ -100,64 +109,106 @@ fn crop_dates(dates: MonthString) -> Result<MonthString> {
     let mut sunday: Vec<String> = Vec::new();
 
     for day in dates.monday.clone() {
+        let date = day.split("-").collect::<Vec<&str>>();
+
         if day.contains("0000-00-00") {
             monday.push("--".to_string());
+        } else if current_date.year == date[0].parse::<i32>()?
+            && current_date.month == date[1].parse::<u32>()?
+            && current_date.day == date[2].parse::<u32>()?
+        {
+            monday.push(date[2].yellow().to_string());
         } else {
-            let date = day.split("-").collect::<Vec<&str>>();
             monday.push(date[2].to_string());
         }
     }
 
     for day in dates.tuesday.clone() {
+        let date = day.split("-").collect::<Vec<&str>>();
+
         if day.contains("0000-00-00") {
             tuesday.push("--".to_string());
+        } else if current_date.year == date[0].parse::<i32>()?
+            && current_date.month == date[1].parse::<u32>()?
+            && current_date.day == date[2].parse::<u32>()?
+        {
+            tuesday.push(date[2].yellow().to_string());
         } else {
-            let date = day.split("-").collect::<Vec<&str>>();
             tuesday.push(date[2].to_string());
         }
     }
 
     for day in dates.wednesday.clone() {
+        let date = day.split("-").collect::<Vec<&str>>();
+
         if day.contains("0000-00-00") {
             wednesday.push("--".to_string());
+        } else if current_date.year == date[0].parse::<i32>()?
+            && current_date.month == date[1].parse::<u32>()?
+            && current_date.day == date[2].parse::<u32>()?
+        {
+            wednesday.push(date[2].yellow().to_string());
         } else {
-            let date = day.split("-").collect::<Vec<&str>>();
             wednesday.push(date[2].to_string());
         }
     }
 
     for day in dates.thursday.clone() {
+        let date = day.split("-").collect::<Vec<&str>>();
+
         if day.contains("0000-00-00") {
             thursday.push("--".to_string());
+        } else if current_date.year == date[0].parse::<i32>()?
+            && current_date.month == date[1].parse::<u32>()?
+            && current_date.day == date[2].parse::<u32>()?
+        {
+            thursday.push(date[2].yellow().to_string());
         } else {
-            let date = day.split("-").collect::<Vec<&str>>();
             thursday.push(date[2].to_string());
         }
     }
 
     for day in dates.friday.clone() {
+        let date = day.split("-").collect::<Vec<&str>>();
+
         if day.contains("0000-00-00") {
             friday.push("--".to_string());
+        } else if current_date.year == date[0].parse::<i32>()?
+            && current_date.month == date[1].parse::<u32>()?
+            && current_date.day == date[2].parse::<u32>()?
+        {
+            friday.push(date[2].yellow().to_string());
         } else {
-            let date = day.split("-").collect::<Vec<&str>>();
             friday.push(date[2].to_string());
         }
     }
 
     for day in dates.saturday.clone() {
+        let date = day.split("-").collect::<Vec<&str>>();
+
         if day.contains("0000-00-00") {
             saturday.push("--".to_string());
+        } else if current_date.year == date[0].parse::<i32>()?
+            && current_date.month == date[1].parse::<u32>()?
+            && current_date.day == date[2].parse::<u32>()?
+        {
+            saturday.push(date[2].yellow().to_string());
         } else {
-            let date = day.split("-").collect::<Vec<&str>>();
             saturday.push(date[2].to_string());
         }
     }
 
     for day in dates.sunday.clone() {
+        let date = day.split("-").collect::<Vec<&str>>();
+
         if day.contains("0000-00-00") {
             sunday.push("--".to_string());
+        } else if current_date.year == date[0].parse::<i32>()?
+            && current_date.month == date[1].parse::<u32>()?
+            && current_date.day == date[2].parse::<u32>()?
+        {
+            sunday.push(date[2].yellow().to_string());
         } else {
-            let date = day.split("-").collect::<Vec<&str>>();
             sunday.push(date[2].to_string());
         }
     }
@@ -171,4 +222,21 @@ fn crop_dates(dates: MonthString) -> Result<MonthString> {
         saturday,
         sunday,
     })
+}
+
+fn today() -> Result<Date> {
+    let current_date_with_time = Local::now().to_string();
+    let tmp = current_date_with_time
+        .chars()
+        .into_iter()
+        .take(10)
+        .collect::<String>();
+    let current_date_stripped = tmp.split("-").collect::<Vec<&str>>();
+
+    let mut date = Date::new();
+    date.year = current_date_stripped[0].parse::<i32>()?;
+    date.month = current_date_stripped[1].parse::<u32>()?;
+    date.day = current_date_stripped[2].parse::<u32>()?;
+
+    Ok(date)
 }
