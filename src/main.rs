@@ -22,16 +22,25 @@ fn main() -> Result<()> {
 
     date.day = 1;
 
-    println!("month (as number):");
-    date.month = get_input();
+    println!("mode 1 (month only)/mode 2 (month + year)");
+    let mode: u8 = get_input();
 
-    println!("year (as number):");
-    date.year = get_input::<i32>().try_into()?;
+    if mode == 1 {
+        println!("month (as number): ");
+        date.month = get_input();
+
+        date.year = today.year;
+    } else if mode == 2 {
+        println!("month (as number): ");
+        date.month = get_input();
+
+        println!("year (as number): ");
+        date.year = get_input::<i32>().try_into()?;
+    }
 
     let sorted_month_string = month
         .clone()
         .build_month_from_date_string(&mut month_as_naive_date, date);
-
     let sorted_month_string = sorted_month_string
         .clone()
         .push_dummy_dates_to_vectors(date, dummy_date);
