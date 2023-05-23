@@ -3,11 +3,12 @@ extern crate colored;
 use crate::date::Date;
 use crate::month::{MonthNaiveDate, MonthString};
 
+use std::str::FromStr;
 use std::{cmp, fmt};
 
 use anyhow::{anyhow, Ok, Result};
 use chrono::Local;
-use colored::*;
+use colored::Colorize;
 
 mod date;
 mod month;
@@ -22,10 +23,10 @@ fn main() -> Result<()> {
     date.day = 1;
 
     println!("month (as number):");
-    date.month = get_u32();
+    date.month = get_input();
 
     println!("year (as number):");
-    date.year = get_u32().try_into().unwrap();
+    date.year = get_input::<i32>().try_into()?;
 
     let sorted_month_string = month
         .clone()
@@ -34,15 +35,17 @@ fn main() -> Result<()> {
     let sorted_month_string = sorted_month_string
         .clone()
         .push_dummy_dates_to_vectors(date, dummy_date);
-    //let output = print_month(sorted_month_string);
-    let cropped_string = crop_dates(sorted_month_string, today).unwrap();
-    dbg!(today);
-    print_month(cropped_string).unwrap();
+    let cropped_string = crop_dates(sorted_month_string, today)?;
+
+    print_month(cropped_string)?;
 
     Ok(())
 }
 
-fn get_u32() -> u32 {
+fn get_input<T: std::str::FromStr>() -> T
+where
+    <T as FromStr>::Err: std::fmt::Debug,
+{
     let mut buffer = String::new();
     let stdin = std::io::stdin();
 
@@ -78,7 +81,7 @@ fn print_month(mut dates: MonthString) -> Result<()> {
         ),
     );
 
-    for mut i in 0..length {
+    for i in 0..length {
         let output_string = fmt::format(format_args!(
             " {}     | {}      | {}        | {}       | {}     | {}       | {} {}",
             &dates.monday[i],
@@ -92,8 +95,6 @@ fn print_month(mut dates: MonthString) -> Result<()> {
         ));
 
         print!("{}", output_string);
-
-        i += 1;
     }
 
     Ok(())
