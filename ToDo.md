@@ -1,8 +1,8 @@
 - [x] Liste Tage des aktuellen Monates (eine Woche je Zeile, mit Wochennummer). Wochenanfang ist Montag
 - [x] Markiere "Heute"
-- [ ] Mit Eingabe eines Monates diesen Monat anzeigen
+- [x] Mit Eingabe eines Monates diesen Monat anzeigen
 - [x] Mit Eingabe eines Jahres + Monates diesen Monat anzeigen
-- [ ] Tag + Monat eingeben um Termin hinzuzufügen
+- [x] Tag + Monat eingeben um Termin hinzuzufügen
 - [ ] Termin hat Überschrift/Titel + mehrzeilige Notiz
 - [ ] In Datei speichern. Format ist beliebig, empfehle eine Textdatei mit Datum als Namen pro Termin.
 - [ ] Bei Programstart wieder laden + Tage mit Terminen hervorheben

@@ -1,52 +1,88 @@
+#![feature(file_create_new)]
 extern crate colored;
 
 use crate::date::Date;
+use crate::event::Event as EventInstance;
 use crate::month::{MonthNaiveDate, MonthString};
 
 use std::str::FromStr;
-use std::{cmp, fmt};
+use std::{cmp, fmt, fs};
 
 use anyhow::{anyhow, Ok, Result};
 use chrono::Local;
 use colored::Colorize;
 
 mod date;
+mod event;
 mod month;
 
 fn main() -> Result<()> {
     let mut date = Date::new();
     let month = MonthString::new();
     let mut month_as_naive_date = MonthNaiveDate::new();
+    let mut event = EventInstance::new();
     let dummy_date = "0000-00-00".to_string();
     let today = today()?;
+    let event_file = EventInstance::create_filename()?;
 
     date.day = 1;
 
-    println!("mode 1 (month only)/mode 2 (month + year)");
+    println!("mode 1 (month only)/mode 2 (month + year)/mode 3 (create event)/mode 4 (show event)");
     let mode: u8 = get_input();
 
     if mode == 1 {
-        println!("month (as number): ");
+        println!("month (as number):");
         date.month = get_input();
 
         date.year = today.year;
+
+        let sorted_month_string = month
+            .clone()
+            .build_month_from_date_string(&mut month_as_naive_date, date);
+        let sorted_month_string = sorted_month_string
+            .clone()
+            .push_dummy_dates_to_vectors(date, dummy_date);
+        let cropped_string = crop_dates(sorted_month_string, today)?;
+
+        print_month(cropped_string)?;
     } else if mode == 2 {
-        println!("month (as number): ");
+        println!("month (as number):");
         date.month = get_input();
 
-        println!("year (as number): ");
+        println!("year (as number):");
         date.year = get_input::<i32>().try_into()?;
+
+        let sorted_month_string = month
+            .clone()
+            .build_month_from_date_string(&mut month_as_naive_date, date);
+        let sorted_month_string = sorted_month_string
+            .clone()
+            .push_dummy_dates_to_vectors(date, dummy_date);
+        let cropped_string = crop_dates(sorted_month_string, today)?;
+
+        print_month(cropped_string)?;
+    } else if mode == 3 {
+        println!("day:");
+        date.day = get_input();
+
+        println!("month:");
+        date.month = get_input();
+
+        let mut event = EventInstance::create_event(&mut event, date);
+
+        if event.write_event_to_file(&event_file).is_err() {
+            fs::remove_file(&event_file)?;
+            event.write_event_to_file(&event_file)?;
+        } else {
+            event.write_event_to_file(&event_file)?;
+        }
+    } else if mode == 4 {
+        let event_content = event.read_event_from_file(&event_file)?;
+
+        println!("title: {}", event_content.title);
+        println!("date:  {}.{}", event_content.day, event_content.month);
+        println!("description: {}", event_content.content);
     }
-
-    let sorted_month_string = month
-        .clone()
-        .build_month_from_date_string(&mut month_as_naive_date, date);
-    let sorted_month_string = sorted_month_string
-        .clone()
-        .push_dummy_dates_to_vectors(date, dummy_date);
-    let cropped_string = crop_dates(sorted_month_string, today)?;
-
-    print_month(cropped_string)?;
 
     Ok(())
 }
