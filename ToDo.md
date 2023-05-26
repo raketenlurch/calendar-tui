@@ -4,7 +4,7 @@
 - [x] Mit Eingabe eines Jahres + Monates diesen Monat anzeigen
 - [x] Tag + Monat eingeben um Termin hinzuzufügen
 - [ ] Termin hat Überschrift/Titel + mehrzeilige Notiz
-- [ ] In Datei speichern. Format ist beliebig, empfehle eine Textdatei mit Datum als Namen pro Termin.
+- [x] In Datei speichern. Format ist beliebig, empfehle eine Textdatei mit Datum als Namen pro Termin.
 - [ ] Bei Programstart wieder laden + Tage mit Terminen hervorheben
 - [ ] Auf Eingabe eines bestimmten Kommandos alle Termine in der Zukunft auflisten
 - [ ] Durchnummerieren und auf Eingabe der Nummer den Text dazu anzeigen
@@ -12,7 +12,7 @@
 - [ ] Einen Kommandozeilenparameter akzeptieren, der das Anzeigen eines Menüs unterdrückt und eine Mail als Reminder sendet, wenn "Morgen" ein Termin ansteht (damit man es als cron laufen lassen könnte)!
 - [ ] Exportiere beliebigen Monat zu statischem HTML. Ohne "heute" aber mit makierten Terminen und mit einer List unter dem Kalender mit den Überschriften der Termine + Datum
 - [ ] GUI/TUI bauen
-- [ ] read ics files and display the events it contains
+- [ ] read/write ics files and display the events it contains
 - [ ] write tests
 
 ```

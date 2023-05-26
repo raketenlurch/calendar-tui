@@ -2,13 +2,12 @@ use anyhow::{Ok, Result};
 
 use std::fs;
 
+use crate::helper::{crop_dates, print_month};
 use crate::{
-    crop_dates,
     date::Date,
     event::Event,
     get_input,
     month::{MonthNaiveDate, MonthString},
-    print_month,
 };
 
 pub fn mode_one(
