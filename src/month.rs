@@ -2,6 +2,7 @@ use chrono::{Datelike, NaiveDate};
 use itertools::Itertools;
 
 use crate::date::Date;
+use crate::helper::calculate_leap_year;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MonthNaiveDate {
@@ -281,18 +282,6 @@ impl From<MonthNaiveDate> for MonthString {
             saturday,
             sunday,
         }
-    }
-}
-
-pub fn calculate_leap_year(year: i32) -> bool {
-    if year % 4 == 0 && year % 100 != 0 {
-        true
-    } else if year % 100 == 0 && year % 400 != 0 {
-        false
-    } else if year % 400 == 0 {
-        true
-    } else {
-        false
     }
 }
 
