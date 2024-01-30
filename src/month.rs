@@ -3,6 +3,7 @@ use itertools::Itertools;
 
 use crate::date::Date;
 use crate::helper::calculate_leap_year;
+use crate::month_string::MonthString;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MonthNaiveDate {
@@ -15,7 +16,7 @@ pub struct MonthNaiveDate {
     pub sunday: Vec<NaiveDate>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+/*#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MonthString {
     pub monday: Vec<String>,
     pub tuesday: Vec<String>,
@@ -24,7 +25,7 @@ pub struct MonthString {
     pub friday: Vec<String>,
     pub saturday: Vec<String>,
     pub sunday: Vec<String>,
-}
+}*/
 
 impl MonthNaiveDate {
     pub fn new() -> Self {
@@ -285,7 +286,7 @@ impl From<MonthNaiveDate> for MonthString {
     }
 }
 
-impl MonthString {
+/*impl MonthString {
     pub fn new() -> Self {
         Self {
             monday: Vec::new(),
@@ -626,4 +627,4 @@ impl From<Vec<Vec<String>>> for MonthString {
             sunday: value[6].clone(),
         }
     }
-}
+}*/

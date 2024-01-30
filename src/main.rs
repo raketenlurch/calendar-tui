@@ -5,7 +5,8 @@ use crate::date::Date;
 use crate::event::Event as EventInstance;
 use crate::helper::{get_input, today};
 use crate::mode::{mode_four, mode_one, mode_three, mode_two};
-use crate::month::{MonthNaiveDate, MonthString};
+use crate::month::MonthNaiveDate;
+use crate::month_string::MonthString;
 
 use anyhow::{Ok, Result};
 
@@ -14,6 +15,7 @@ mod event;
 mod helper;
 mod mode;
 mod month;
+mod month_string;
 
 fn main() -> Result<()> {
     let mut date = Date::new();

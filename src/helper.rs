@@ -5,7 +5,7 @@ use anyhow::{anyhow, Ok, Result};
 use chrono::Local;
 use colored::Colorize;
 
-use crate::{date::Date, month::MonthString};
+use crate::{date::Date, month_string::MonthString};
 
 pub fn get_input<T: std::str::FromStr>() -> T
 where
@@ -22,7 +22,7 @@ where
 }
 
 pub fn print_month(mut dates: MonthString) -> Result<()> {
-    if !dates.check_if_month_are_all_equal() {
+    if !dates.check_if_months_are_all_equal() {
         return Err(anyhow!("All fields need to have the same length"));
     }
 

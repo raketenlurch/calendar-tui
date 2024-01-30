@@ -4,10 +4,7 @@ use std::fs;
 
 use crate::helper::{crop_dates, print_month};
 use crate::{
-    date::Date,
-    event::Event,
-    get_input,
-    month::{MonthNaiveDate, MonthString},
+    date::Date, event::Event, get_input, month::MonthNaiveDate, month_string::MonthString,
 };
 
 pub fn mode_one(
